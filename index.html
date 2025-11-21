@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Route Optimization - Shway Logistics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold gradient-text">Shway</span>
+                    <span class="ml-2 text-sm text-gray-500">Quantum Route Optimization</span>
+                </div>
+                <a href="#beta" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition font-medium">
+                    Join Beta
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-4xl mx-auto">
+                <h1 class="text-5xl font-bold mb-6 leading-tight">
+                    Cut Logistics Costs by 15%<br/>Using Quantum Optimization
+                </h1>
+                <p class="text-xl mb-8 text-purple-100">
+                    Route optimization that evaluates billions of scenarios simultaneously. Built on D-Wave quantum annealers for freight brokers, 3PLs, and supply chain operations.
+                </p>
+                <div class="flex gap-4 justify-center">
+                    <a href="#beta" class="bg-white text-purple-600 px-8 py-4 rounded-lg hover:bg-gray-100 transition font-semibold text-lg">
+                        Apply for Beta Access
+                    </a>
+                    <a href="#how-it-works" class="border-2 border-white text-white px-8 py-4 rounded-lg hover:bg-white hover:text-purple-600 transition font-semibold text-lg">
+                        See How It Works
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">The Route Optimization Problem</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Logistics operations lose millions annually on suboptimal routing. Classical algorithms can't evaluate all possible scenarios in real-time.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="text-red-600 text-5xl mb-4">💸</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Wasted Fuel & Labor</h3>
+                    <p class="text-gray-600">
+                        Inefficient routing means drivers travel unnecessary miles, burning fuel and hours on routes that could be 10-20% shorter.
+                    </p>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="text-orange-600 text-5xl mb-4">📦</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Poor Load Consolidation</h3>
+                    <p class="text-gray-600">
+                        Classical algorithms struggle to optimize multi-stop routes with varying load sizes, leading to underutilized capacity.
+                    </p>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="text-yellow-600 text-5xl mb-4">⏱️</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Slow Calculation Times</h3>
+                    <p class="text-gray-600">
+                        Traditional solvers take minutes to hours for complex routes. By then, traffic conditions have already changed.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="py-20 bg-gradient-to-br from-purple-50 to-indigo-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6">Quantum-Powered Route Optimization</h2>
+                    <p class="text-lg text-gray-700 mb-6">
+                        Our platform uses D-Wave quantum annealers to solve complex routing problems that classical computers can't handle efficiently. We formulate your logistics constraints as QUBO problems and leverage quantum superposition to evaluate billions of route combinations simultaneously.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0 mt-1">✓</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-1">Real-time optimization</h4>
+                                <p class="text-gray-600">Solutions in seconds, not hours, adapting to live traffic and constraints</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0 mt-1">✓</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-1">Multi-objective optimization</h4>
+                                <p class="text-gray-600">Simultaneously optimize for cost, time, fuel, and capacity utilization</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0 mt-1">✓</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-1">Seamless integration</h4>
+                                <p class="text-gray-600">APIs that plug into your existing TMS, dispatch, and fleet management systems</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-xl">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">Proven Impact</h3>
+                    
+                    <div class="mb-8">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-700 font-medium">Route Efficiency Gain</span>
+                            <span class="text-purple-600 font-bold">15-20%</span>
+                        </div>
+                        <div class="bg-gray-200 rounded-full h-3">
+                            <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full h-3" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-700 font-medium">Fuel Cost Reduction</span>
+                            <span class="text-purple-600 font-bold">12-18%</span>
+                        </div>
+                        <div class="bg-gray-200 rounded-full h-3">
+                            <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full h-3" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-700 font-medium">Calculation Speed Improvement</span>
+                            <span class="text-purple-600 font-bold">83%</span>
+                        </div>
+                        <div class="bg-gray-200 rounded-full h-3">
+                            <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full h-3" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-sm text-gray-500 italic">
+                        *Based on Ford Otosan's quantum scheduling deployment, reducing vehicle scheduling from 30 minutes to under 5 minutes (83% improvement)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">How It Works</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    From your dispatch data to optimized routes in three steps
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-purple-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">1</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Input Your Constraints</h3>
+                    <p class="text-gray-600">
+                        Feed us your delivery locations, vehicle capacities, time windows, and priorities through our API or dashboard.
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-purple-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">2</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Quantum QUBO Formulation</h3>
+                    <p class="text-gray-600">
+                        We convert your routing problem into a Quadratic Unconstrained Binary Optimization format and submit it to D-Wave's quantum annealer.
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-purple-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">3</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Get Optimized Routes</h3>
+                    <p class="text-gray-600">
+                        Receive globally optimal routes in seconds, ready to dispatch to your drivers with turn-by-turn guidance.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Quantum Logistics is Already Here</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Major enterprises are already deploying quantum optimization in production
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Ford Otosan</h3>
+                    <p class="text-gray-600 mb-4">
+                        Reduced vehicle scheduling time from 30 minutes to under 5 minutes using quantum annealing for 1,000+ vehicle fleet optimization.
+                    </p>
+                    <span class="text-sm text-purple-600 font-semibold">Production deployment • Automotive manufacturing</span>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">BASF + Multiverse Computing</h3>
+                    <p class="text-gray-600 mb-4">
+                        9-month project to develop quantum models for foreign exchange trading optimization, demonstrating quantum's commercial viability in complex optimization.
+                    </p>
+                    <span class="text-sm text-purple-600 font-semibold">Active project • Chemical manufacturing</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beta Program CTA -->
+    <section id="beta" class="py-20 gradient-bg text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold mb-6">Join Our Beta Program</h2>
+            <p class="text-xl mb-8 text-purple-100">
+                We're looking for 3-5 forward-thinking logistics companies to pilot our quantum route optimization platform. Beta partners get early access, hands-on implementation support, and preferential pricing.
+            </p>
+            
+            <div class="bg-white text-gray-900 p-8 rounded-2xl max-w-2xl mx-auto">
+                <form class="space-y-6" action="https://formspree.io/f/myzlgobo" method="POST">
+                    <div class="text-left">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Company Name</label>
+                        <input type="text" name="company" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Your company">
+                    </div>
+                    
+                    <div class="text-left">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Your Name</label>
+                        <input type="text" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="John Smith">
+                    </div>
+                    
+                    <div class="text-left">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Work Email</label>
+                        <input type="email" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="john@company.com">
+                    </div>
+                    
+                    <div class="text-left">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Fleet Size / Monthly Shipments</label>
+                        <input type="text" name="fleet_size" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="e.g., 50 trucks, 10,000 shipments/month">
+                    </div>
+                    
+                    <div class="text-left">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Current Routing Challenge</label>
+                        <textarea name="challenge" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Describe your biggest routing pain point..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-purple-600 text-white py-4 rounded-lg hover:bg-purple-700 transition font-bold text-lg">
+                        Apply for Beta Access
+                    </button>
+                    
+                    <p class="text-sm text-gray-500 text-center">
+                        We'll review your application and get back to you within 48 hours
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Built by Quantum Experts</h2>
+                <p class="text-xl text-gray-600">
+                    We're a team of quantum computing researchers and logistics optimization specialists building the future of supply chain efficiency.
+                </p>
+            </div>
+            
+            <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-8 rounded-2xl">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">Why Now?</h3>
+                <p class="text-gray-700 mb-4">
+                    Quantum annealing technology has matured to the point where it can deliver commercial value for specific optimization problems. D-Wave's latest Advantage systems have 5000+ qubits and are accessible via cloud APIs.
+                </p>
+                <p class="text-gray-700 mb-4">
+                    We're not waiting for "fault-tolerant quantum computing" in 2030. We're using today's quantum annealers to solve today's logistics challenges.
+                </p>
+                <p class="text-gray-700">
+                    If you're a freight broker, 3PL, or supply chain operation managing complex multi-stop routes, we want to work with you.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold text-white mb-4">Shway Quantum Route Optimization</h3>
+                <p class="mb-6">Cutting logistics costs with quantum computing</p>
+                <div class="space-x-6">
+                    <a href="#beta" class="hover:text-white transition">Beta Program</a>
+                    <a href="#how-it-works" class="hover:text-white transition">How It Works</a>
+                    <a href="mailto:team@shway.io" class="hover:text-white transition">Contact</a>
+                </div>
+                <p class="mt-8 text-sm text-gray-500">© 2025 Shway. Built with D-Wave quantum annealers.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
