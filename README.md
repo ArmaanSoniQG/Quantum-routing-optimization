@@ -27,3 +27,7 @@ This repository contains the source code for the "One-Click" optimization soluti
 - **Phase 1**: Domain Modeling & Core Formulation (Current)
 - **Phase 2**: Middleware & API Layer
 - **Phase 3**: Pilot Interface & Deployment
+
+## Documentation for Contributors
+- [Architecture & Progress Overview](docs/architecture_overview.md): **Read this first!** Explains the Day 1 & 2 changes (Restructuring + Weight Constraints).
+- [Learning Guide](docs/learning_guide.md): Mapping Logistics to QUBO.
