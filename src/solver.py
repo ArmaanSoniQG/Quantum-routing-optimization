@@ -181,6 +181,87 @@ class EnterpriseSolver:
                     label=f"load_bearing_{k}_supports_{i}"
                 )
 
+        # C7. ADVANCED LOGISTICS (Day 4: Axles & Balance)
+        for j in range(num_bins):
+            bin_obj = bins[j]
+            
+            # Only apply if parameters are set
+            if bin_obj.center_of_gravity_target and bin_obj.cog_tolerance:
+                target_x, target_y = bin_obj.center_of_gravity_target
+                tol = bin_obj.cog_tolerance
+                
+                # Calculate Total Weight in Bin j
+                total_weight_j = quicksum(
+                    self.bin_loc[i, j] * items[i].weight 
+                    for i in range(num_items)
+                )
+                
+                # Calculate Moment X (Weight * Position)
+                # Note: x[i] is the corner. CoG of item is x[i] + len/2.
+                moment_x_j = quicksum(
+                    self.bin_loc[i, j] * items[i].weight * (self.x[i] + items[i].dims.length/2)
+                    for i in range(num_items)
+                )
+                
+                # Constraint: |Moment / Weight - Target| <= Tol
+                # => Moment - (Target + Tol) * Weight <= 0
+                # => Moment - (Target - Tol) * Weight >= 0
+                
+                self.cqm.add_constraint(
+                    moment_x_j - (target_x + tol) * total_weight_j <= 0,
+                    label=f"cog_x_upper_bin_{j}"
+                )
+                self.cqm.add_constraint(
+                    moment_x_j - (target_x - tol) * total_weight_j >= 0,
+                    label=f"cog_x_lower_bin_{j}"
+                )
+                
+                # Same for Y (Lateral Balance)
+                moment_y_j = quicksum(
+                    self.bin_loc[i, j] * items[i].weight * (self.y[i] + items[i].dims.width/2)
+                    for i in range(num_items)
+                )
+                self.cqm.add_constraint(
+                    moment_y_j - (target_y + tol) * total_weight_j <= 0,
+                    label=f"cog_y_upper_bin_{j}"
+                )
+                self.cqm.add_constraint(
+                    moment_y_j - (target_y - tol) * total_weight_j >= 0,
+                    label=f"cog_y_lower_bin_{j}"
+                )
+
+            # Axle Weights (Requires Wheelbase)
+            if bin_obj.wheelbase and bin_obj.axle_max_weight:
+                wb = bin_obj.wheelbase
+                max_axle = bin_obj.axle_max_weight
+                
+                # Re-calculate Moment X and Total Weight (or reuse if we could, but variables are cheap)
+                total_weight_j = quicksum(
+                    self.bin_loc[i, j] * items[i].weight 
+                    for i in range(num_items)
+                )
+                moment_x_j = quicksum(
+                    self.bin_loc[i, j] * items[i].weight * (self.x[i] + items[i].dims.length/2)
+                    for i in range(num_items)
+                )
+                
+                # Rear Axle Load = Moment_X / Wheelbase
+                # (Assuming X=0 is Front Axle. If X=0 is front wall and front axle is offset, we'd adjust)
+                # Let's assume X=0 is the Front Axle position for simplicity of Day 4.
+                rear_axle_load = moment_x_j / wb
+                
+                # Front Axle Load = Total Weight - Rear Axle Load
+                front_axle_load = total_weight_j - rear_axle_load
+                
+                self.cqm.add_constraint(
+                    rear_axle_load <= max_axle,
+                    label=f"axle_rear_limit_bin_{j}"
+                )
+                self.cqm.add_constraint(
+                    front_axle_load <= max_axle,
+                    label=f"axle_front_limit_bin_{j}"
+                )
+
         # --- Objective ---
         # Minimize number of bins used
         self.cqm.set_objective(quicksum(self.bin_on[j] for j in range(num_bins)))

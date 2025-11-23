@@ -40,6 +40,12 @@ class Bin(BaseModel):
     dims: Dimensions
     max_weight: float = Field(..., gt=0, description="Max payload capacity in kg")
     
+    # Advanced Logistics (Day 4)
+    axle_max_weight: Optional[float] = Field(None, description="Max weight per axle (Front/Rear)")
+    wheelbase: Optional[float] = Field(None, description="Distance between front and rear axles")
+    center_of_gravity_target: Optional[Tuple[float, float]] = Field(None, description="Target (x, y) CoG")
+    cog_tolerance: Optional[float] = Field(None, description="Allowed deviation from CoG target")
+    
     # Future: Axle constraints
     # axle_weights: Optional[List[float]] = None
 
