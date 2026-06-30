@@ -1,332 +1,404 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Route Optimization - FreightWave Logistics</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FreightWave catches CBSA compliance violations before the inspector does. Pre-dispatch verification for freight loads, trailers, and containers.">
+  <title>FreightWave — Catch the violation before the inspector does</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --charcoal: #1a1a1a;
+      --charcoal-soft: #2a2a2a;
+      --amber: #e8932a;
+      --amber-hover: #f5a444;
+      --gray-1: #555555;
+      --gray-2: #888888;
+      --gray-3: #e5e5e5;
+      --gray-4: #f5f4f1;
+      --bg: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--charcoal);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    header {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--gray-3);
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+    header .container { display: flex; justify-content: space-between; align-items: center; }
+    .brand {
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: -0.01em;
+      color: var(--charcoal);
+      text-decoration: none;
+    }
+    .brand-dot { color: var(--amber); }
+    nav a {
+      color: var(--charcoal);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      margin-left: 32px;
+    }
+    nav a:hover { color: var(--amber); }
+
+    /* Hero */
+    .hero { padding: 120px 0 100px; border-bottom: 1px solid var(--gray-3); }
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      margin-bottom: 28px;
+      max-width: 920px;
+    }
+    .hero h1 .accent { color: var(--amber); }
+    .hero p.subtitle {
+      font-size: 20px;
+      color: var(--gray-1);
+      max-width: 640px;
+      margin-bottom: 40px;
+      line-height: 1.5;
+    }
+
+    .cta-row { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary { background: var(--charcoal); color: white; }
+    .btn-primary:hover { background: #000; }
+    .btn-secondary { background: transparent; color: var(--charcoal); border: 1px solid var(--gray-3); }
+    .btn-secondary:hover { border-color: var(--charcoal); }
+
+    /* Sections */
+    section { padding: 90px 0; border-bottom: 1px solid var(--gray-3); }
+    .section-label {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--amber);
+      margin-bottom: 18px;
+    }
+    .section-title {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+      max-width: 720px;
+    }
+    .section-intro {
+      font-size: 18px;
+      color: var(--gray-1);
+      max-width: 640px;
+      margin-bottom: 56px;
+      line-height: 1.55;
+    }
+
+    /* Problem stats */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+    .stat { padding: 32px 0; border-top: 2px solid var(--charcoal); }
+    .stat .num {
+      font-size: 56px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--charcoal);
+      line-height: 1;
+      margin-bottom: 18px;
+    }
+    .stat .num .accent { color: var(--amber); }
+    .stat .num .unit { font-size: 0.5em; color: var(--gray-1); font-weight: 600; margin-left: 4px; }
+    .stat .label { font-size: 15px; color: var(--gray-1); line-height: 1.5; }
+
+    /* Solution steps */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 36px;
+    }
+    .step { padding-top: 24px; border-top: 1px solid var(--gray-3); }
+    .step-num {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--amber);
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+    .step h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+    .step p { color: var(--gray-1); font-size: 15px; line-height: 1.55; }
+
+    /* Quote */
+    .quote-card {
+      background: var(--gray-4);
+      padding: 56px 48px;
+      border-left: 4px solid var(--amber);
+      margin: 40px 0 0;
+    }
+    .quote-card blockquote {
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: -0.015em;
+      color: var(--charcoal);
+      margin-bottom: 24px;
+    }
+    .quote-attr { font-size: 14px; color: var(--gray-1); font-weight: 500; }
+
+    .stage-note {
+      margin-top: 40px;
+      padding-top: 28px;
+      border-top: 1px solid var(--gray-3);
+      color: var(--gray-1);
+      font-size: 15px;
+      max-width: 640px;
+    }
+
+    /* Personas */
+    .personas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+    }
+    .persona { padding: 40px; background: var(--gray-4); border-radius: 8px; }
+    .persona-name {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--amber);
+      margin-bottom: 14px;
+    }
+    .persona h3 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      letter-spacing: -0.015em;
+      line-height: 1.25;
+    }
+    .persona-list { list-style: none; }
+    .persona-list li {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--gray-3);
+      font-size: 15px;
+      color: var(--gray-1);
+      line-height: 1.5;
+    }
+    .persona-list li:last-child { border-bottom: none; padding-bottom: 0; }
+    .persona-list li strong {
+      color: var(--charcoal);
+      font-weight: 700;
+      display: block;
+      margin-bottom: 6px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Pilot */
+    .pilot { background: var(--charcoal); color: white; border-bottom: none; }
+    .pilot .section-title { color: white; max-width: 800px; }
+    .pilot .section-intro { color: #c5c5c5; }
+    .pilot .section-label { color: var(--amber); }
+    .pilot .btn-primary { background: var(--amber); color: var(--charcoal); }
+    .pilot .btn-primary:hover { background: var(--amber-hover); }
+
+    /* Footer */
+    footer { padding: 48px 0 36px; }
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-meta { color: var(--gray-2); font-size: 14px; }
+    footer a { color: var(--charcoal); text-decoration: none; font-size: 14px; font-weight: 500; }
+    footer a:hover { color: var(--amber); }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      .hero { padding: 72px 0 56px; }
+      section { padding: 64px 0; }
+      .quote-card { padding: 36px 28px; }
+      .quote-card blockquote { font-size: 20px; }
+      .persona { padding: 32px 28px; }
+      nav a { margin-left: 18px; font-size: 13px; }
+      .stat .num { font-size: 48px; }
+    }
+  </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center">
-                    <span class="text-2xl font-bold gradient-text">FreightWave</span>
-                    <span class="ml-2 text-sm text-gray-500">Quantum Route Optimization</span>
-                </div>
-                <a href="#beta" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition font-medium">
-                    Join Beta
-                </a>
-            </div>
-        </div>
-    </nav>
+<body>
+  <header>
+    <div class="container">
+      <a href="/" class="brand">FreightWave<span class="brand-dot">.</span></a>
+      <nav>
+        <a href="#problem">The problem</a>
+        <a href="#solution">How it works</a>
+        <a href="#pilot">Pilot</a>
+      </nav>
+    </div>
+  </header>
 
-    <!-- Hero Section -->
-    <section class="gradient-bg text-white py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-4xl mx-auto">
-                <h1 class="text-5xl font-bold mb-6 leading-tight">
-                    Cut Logistics Costs by 15%<br/>Using Quantum Optimization
-                </h1>
-                <p class="text-xl mb-8 text-purple-100">
-                    Route optimization that evaluates billions of scenarios simultaneously. Built on D-Wave quantum annealers for freight brokers, 3PLs, and supply chain operations.
-                </p>
-                <div class="flex gap-4 justify-center">
-                    <a href="#beta" class="bg-white text-purple-600 px-8 py-4 rounded-lg hover:bg-gray-100 transition font-semibold text-lg">
-                        Apply for Beta Access
-                    </a>
-                    <a href="#how-it-works" class="border-2 border-white text-white px-8 py-4 rounded-lg hover:bg-white hover:text-purple-600 transition font-semibold text-lg">
-                        See How It Works
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+  <section class="hero">
+    <div class="container">
+      <h1>Catch the violation <span class="accent">before</span> the inspector does.</h1>
+      <p class="subtitle">Pre-dispatch compliance verification for freight loads. Trailers and containers. Built for mid-tier operators tired of paying for mistakes the inspector finds first.</p>
+      <div class="cta-row">
+        <a href="#pilot" class="btn btn-primary">Apply for the pilot</a>
+        <a href="#solution" class="btn btn-secondary">See how it works</a>
+      </div>
+    </div>
+  </section>
 
-    <!-- Problem Section -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">The Route Optimization Problem</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Logistics operations lose millions annually on suboptimal routing. Classical algorithms can't evaluate all possible scenarios in real-time.
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-gray-50 p-8 rounded-xl">
-                    <div class="text-red-600 text-5xl mb-4">💸</div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Wasted Fuel & Labor</h3>
-                    <p class="text-gray-600">
-                        Inefficient routing means drivers travel unnecessary miles, burning fuel and hours on routes that could be 10-20% shorter.
-                    </p>
-                </div>
-                
-                <div class="bg-gray-50 p-8 rounded-xl">
-                    <div class="text-orange-600 text-5xl mb-4">📦</div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Poor Load Consolidation</h3>
-                    <p class="text-gray-600">
-                        Classical algorithms struggle to optimize multi-stop routes with varying load sizes, leading to underutilized capacity.
-                    </p>
-                </div>
-                
-                <div class="bg-gray-50 p-8 rounded-xl">
-                    <div class="text-yellow-600 text-5xl mb-4">⏱️</div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Slow Calculation Times</h3>
-                    <p class="text-gray-600">
-                        Traditional solvers take minutes to hours for complex routes. By then, traffic conditions have already changed.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <section id="problem">
+    <div class="container">
+      <div class="section-label">The problem</div>
+      <h2 class="section-title">CBSA enforcement is rising. Mid-tier operators feel it most.</h2>
+      <p class="section-intro">A hazmat placed wrong. A weight overflow on a tri-axle. A manifest mismatch nobody caught. By the time the inspector finds it, it's already cost you.</p>
 
-    <!-- Solution Section -->
-    <section class="py-20 bg-gradient-to-br from-purple-50 to-indigo-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h2 class="text-4xl font-bold text-gray-900 mb-6">Quantum-Powered Route Optimization</h2>
-                    <p class="text-lg text-gray-700 mb-6">
-                        Our platform uses D-Wave quantum annealers to solve complex routing problems that classical computers can't handle efficiently. We formulate your logistics constraints as QUBO problems and leverage quantum superposition to evaluate billions of route combinations simultaneously.
-                    </p>
-                    
-                    <div class="space-y-4">
-                        <div class="flex items-start">
-                            <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0 mt-1">✓</div>
-                            <div>
-                                <h4 class="font-semibold text-gray-900 mb-1">Real-time optimization</h4>
-                                <p class="text-gray-600">Solutions in seconds, not hours, adapting to live traffic and constraints</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start">
-                            <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0 mt-1">✓</div>
-                            <div>
-                                <h4 class="font-semibold text-gray-900 mb-1">Multi-objective optimization</h4>
-                                <p class="text-gray-600">Simultaneously optimize for cost, time, fuel, and capacity utilization</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start">
-                            <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0 mt-1">✓</div>
-                            <div>
-                                <h4 class="font-semibold text-gray-900 mb-1">Seamless integration</h4>
-                                <p class="text-gray-600">APIs that plug into your existing TMS, dispatch, and fleet management systems</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-white p-8 rounded-2xl shadow-xl">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-6">Proven Impact</h3>
-                    
-                    <div class="mb-8">
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-700 font-medium">Route Efficiency Gain</span>
-                            <span class="text-purple-600 font-bold">15-20%</span>
-                        </div>
-                        <div class="bg-gray-200 rounded-full h-3">
-                            <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full h-3" style="width: 85%"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-8">
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-700 font-medium">Fuel Cost Reduction</span>
-                            <span class="text-purple-600 font-bold">12-18%</span>
-                        </div>
-                        <div class="bg-gray-200 rounded-full h-3">
-                            <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full h-3" style="width: 75%"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-8">
-                        <div class="flex justify-between mb-2">
-                            <span class="text-gray-700 font-medium">Calculation Speed Improvement</span>
-                            <span class="text-purple-600 font-bold">83%</span>
-                        </div>
-                        <div class="bg-gray-200 rounded-full h-3">
-                            <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full h-3" style="width: 95%"></div>
-                        </div>
-                    </div>
-                    
-                    <p class="text-sm text-gray-500 italic">
-                        *Based on Ford Otosan's quantum scheduling deployment, reducing vehicle scheduling from 30 minutes to under 5 minutes (83% improvement)
-                    </p>
-                </div>
-            </div>
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="num">$<span class="accent">1K+</span></div>
+          <div class="label">Minimum CBSA fine when a load gets flagged. Documented at a mid-tier LCL forwarder in Delta, BC.</div>
         </div>
-    </section>
+        <div class="stat">
+          <div class="num">$<span class="accent">160</span><span class="unit">/day</span></div>
+          <div class="label">Detention cost per container while held for inspection. Stacks every day the shipment is frozen.</div>
+        </div>
+        <div class="stat">
+          <div class="num"><span class="accent">Months</span></div>
+          <div class="label">To rebuild reputation with a flagging officer. The fine is the small part — trust erosion is what compounds.</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- How It Works -->
-    <section id="how-it-works" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">How It Works</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    From your dispatch data to optimized routes in three steps
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-purple-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">1</div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Input Your Constraints</h3>
-                    <p class="text-gray-600">
-                        Feed us your delivery locations, vehicle capacities, time windows, and priorities through our API or dashboard.
-                    </p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-purple-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">2</div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Quantum QUBO Formulation</h3>
-                    <p class="text-gray-600">
-                        We convert your routing problem into a Quadratic Unconstrained Binary Optimization format and submit it to D-Wave's quantum annealer.
-                    </p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-purple-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">3</div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Get Optimized Routes</h3>
-                    <p class="text-gray-600">
-                        Receive globally optimal routes in seconds, ready to dispatch to your drivers with turn-by-turn guidance.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <section id="solution">
+    <div class="container">
+      <div class="section-label">The solution</div>
+      <h2 class="section-title">A digital check before the truck leaves the yard.</h2>
+      <p class="section-intro">Shipment data in. A verified load plan out. Inspectors can see it, dispatchers can show it, drivers can follow it. The check runs before the truck rolls — not after the inspector finds the problem.</p>
 
-    <!-- Social Proof -->
-    <section class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">Quantum Logistics is Already Here</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Major enterprises are already deploying quantum optimization in production
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Ford Otosan</h3>
-                    <p class="text-gray-600 mb-4">
-                        Reduced vehicle scheduling time from 30 minutes to under 5 minutes using quantum annealing for 1,000+ vehicle fleet optimization.
-                    </p>
-                    <span class="text-sm text-purple-600 font-semibold">Production deployment • Automotive manufacturing</span>
-                </div>
-                
-                <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">BASF + Multiverse Computing</h3>
-                    <p class="text-gray-600 mb-4">
-                        9-month project to develop quantum models for foreign exchange trading optimization, demonstrating quantum's commercial viability in complex optimization.
-                    </p>
-                    <span class="text-sm text-purple-600 font-semibold">Active project • Chemical manufacturing</span>
-                </div>
-            </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>Send the manifest</h3>
+          <p>Shipment data, equipment type, route, jurisdiction. Through your TMS, a CSV, or our intake form.</p>
         </div>
-    </section>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>We run the check</h3>
+          <p>Weight, axle limits, hazmat placement, dimension and bridge clearance, customs documentation. All in seconds.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>You get a verified plan</h3>
+          <p>Pass or fail verdict with a load plan inspectors trust. Export it as an evidence document for the roadside.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Beta Program CTA -->
-    <section id="beta" class="py-20 gradient-bg text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-4xl font-bold mb-6">Join Our Beta Program</h2>
-            <p class="text-xl mb-8 text-purple-100">
-                We're looking for 3-5 forward-thinking logistics companies to pilot our quantum route optimization platform. Beta partners get early access, hands-on implementation support, and preferential pricing.
-            </p>
-            
-            <div class="bg-white text-gray-900 p-8 rounded-2xl max-w-2xl mx-auto">
-                <form class="space-y-6" action="https://formspree.io/f/myzlgobo" method="POST">
-                    <div class="text-left">
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Company Name</label>
-                        <input type="text" name="company" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Your company">
-                    </div>
-                    
-                    <div class="text-left">
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Your Name</label>
-                        <input type="text" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="John Smith">
-                    </div>
-                    
-                    <div class="text-left">
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Work Email</label>
-                        <input type="email" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="john@company.com">
-                    </div>
-                    
-                    <div class="text-left">
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Fleet Size / Monthly Shipments</label>
-                        <input type="text" name="fleet_size" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="e.g., 50 trucks, 10,000 shipments/month">
-                    </div>
-                    
-                    <div class="text-left">
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Current Routing Challenge</label>
-                        <textarea name="challenge" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Describe your biggest routing pain point..."></textarea>
-                    </div>
-                    
-                    <button type="submit" class="w-full bg-purple-600 text-white py-4 rounded-lg hover:bg-purple-700 transition font-bold text-lg">
-                        Apply for Beta Access
-                    </button>
-                    
-                    <p class="text-sm text-gray-500 text-center">
-                        We'll review your application and get back to you within 48 hours
-                    </p>
-                </form>
-            </div>
-        </div>
-    </section>
+  <section id="validation">
+    <div class="container">
+      <div class="section-label">What operators are telling us</div>
+      <h2 class="section-title">Built on 10 ground-level discovery interviews.</h2>
+      <p class="section-intro">Freight forwarders, trucking carriers, the BC Trucking Association, a sufferance CFS, a customs broker, FedEx P&amp;D ops. The pattern is real.</p>
 
-    <!-- About Section -->
-    <section class="py-20 bg-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">Built by Quantum Experts</h2>
-                <p class="text-xl text-gray-600">
-                    We're a team of quantum computing researchers and logistics optimization specialists building the future of supply chain efficiency.
-                </p>
-            </div>
-            
-            <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-8 rounded-2xl">
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">Why Now?</h3>
-                <p class="text-gray-700 mb-4">
-                    Quantum annealing technology has matured to the point where it can deliver commercial value for specific optimization problems. D-Wave's latest Advantage systems have 5000+ qubits and are accessible via cloud APIs.
-                </p>
-                <p class="text-gray-700 mb-4">
-                    We're not waiting for "fault-tolerant quantum computing" in 2030. We're using today's quantum annealers to solve today's logistics challenges.
-                </p>
-                <p class="text-gray-700">
-                    If you're a freight broker, 3PL, or supply chain operation managing complex multi-stop routes, we want to work with you.
-                </p>
-            </div>
-        </div>
-    </section>
+      <div class="quote-card">
+        <blockquote>"A lot more enforcement this year. A lot more trucks getting pulled over."</blockquote>
+        <div class="quote-attr">Policy Analyst, BC Trucking Association &nbsp;·&nbsp; Unprompted, twice in one call</div>
+      </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-300 py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h3 class="text-2xl font-bold text-white mb-4">Shway Quantum Route Optimization</h3>
-                <p class="mb-6">Cutting logistics costs with quantum computing</p>
-                <div class="space-x-6">
-                    <a href="#beta" class="hover:text-white transition">Beta Program</a>
-                    <a href="#how-it-works" class="hover:text-white transition">How It Works</a>
-                    <a href="mailto:team@shway.io" class="hover:text-white transition">Contact</a>
-                </div>
-                <p class="mt-8 text-sm text-gray-500">© 2025 Shway. Built with D-Wave quantum annealers.</p>
-            </div>
+      <p class="stage-note">Pre-product. Pre-revenue. In active customer discovery. We're talking to operators every week. We're not pretending to have solved this yet — we're building it with the people who feel the pain.</p>
+    </div>
+  </section>
+
+  <section id="personas">
+    <div class="container">
+      <div class="section-label">Who we're building for</div>
+      <h2 class="section-title">Two personas. One problem.</h2>
+      <p class="section-intro">Different seats. Different vocabulary. Same Friday-afternoon dread.</p>
+
+      <div class="personas">
+        <div class="persona">
+          <div class="persona-name">Persona A</div>
+          <h3>Compliance Lead at a mid-tier LCL forwarder</h3>
+          <ul class="persona-list">
+            <li><strong>Job</strong>Keep CBSA out of the warehouse. Protect the bonded license. Ship on time.</li>
+            <li><strong>Pain</strong>Random exams freeze loads for days. Manifest mismatches trigger fines. Reputation suffers.</li>
+            <li><strong>Today</strong>Retraining, internal builds, manual checks. Cope &mdash; but don't prevent.</li>
+          </ul>
         </div>
-    </footer>
+        <div class="persona">
+          <div class="persona-name">Persona B</div>
+          <h3>Dispatcher at a mid-tier trucking carrier</h3>
+          <ul class="persona-list">
+            <li><strong>Job</strong>Every truck passes the next inspection.</li>
+            <li><strong>Pain</strong>Weight. Dimension. Hazmat placement. Bridge clearance. Every roadside stop is a risk.</li>
+            <li><strong>Today</strong>Zero-fine policies that put liability on the carrier. Layered checks. Friday-afternoon dread.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pilot" class="pilot">
+    <div class="container">
+      <div class="section-label">The pilot</div>
+      <h2 class="section-title">Looking for 3 to 5 operators to pilot with us.</h2>
+      <p class="section-intro">If you run a mid-tier freight forwarder or trucking carrier on the BC coast or US West Coast, and you've paid for a CBSA mistake in the last year &mdash; we want to talk.</p>
+      <p class="section-intro" style="margin-bottom: 36px;">Honest about the stage: this is early. Pilot partners get hands-on access, shape what we build, and pay nothing during the pilot window.</p>
+      <a href="mailto:armaan@freightwave.io?subject=FreightWave%20pilot%20interest" class="btn btn-primary">Email us about the pilot</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <a href="/" class="brand">FreightWave<span class="brand-dot">.</span></a>
+      <div class="footer-meta">
+        <a href="mailto:armaan@freightwave.io">armaan@freightwave.io</a>
+        &nbsp;·&nbsp; &copy; 2026 FreightWave
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
